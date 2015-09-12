@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace LiveSplit.UI
 {
+    public delegate void Invalidation(float x, float y, float width, float height);
+
     public class SlideshowInvalidator : IInvalidator
     {
         private readonly IInvalidator innerInvalidator;
-        private readonly Action<float, float, float, float> invalidationAction;
+        private readonly Invalidation invalidationCallback;
 
         public Matrix Transform
         {
@@ -24,15 +26,15 @@ namespace LiveSplit.UI
             }
         }
 
-        public SlideshowInvalidator(IInvalidator innerInvalidator, Action<float, float, float, float> invalidationAction)
+        public SlideshowInvalidator(IInvalidator innerInvalidator, Invalidation invalidationCallback)
         {
             this.innerInvalidator = innerInvalidator;
-            this.invalidationAction = invalidationAction;
+            this.invalidationCallback = invalidationCallback;
         }
 
         public void Invalidate(float x, float y, float width, float height)
         {
-            invalidationAction?.Invoke(x, y, width, height);
+            invalidationCallback?.Invoke(x, y, width, height);
         }
     }
 }
