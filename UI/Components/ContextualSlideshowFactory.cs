@@ -15,7 +15,7 @@ namespace LiveSplit.UI.Components
             => "Contextual Slideshow";
 
         public string Description 
-            => "Creates a Slideshow of multiple Components, always showing the most relevant one.";
+            => "Creates a Slideshow of multiple Components that always shows the most relevant one.";
 
         public IComponent Create(LiveSplitState state)
             => new ContextualSlideshowComponent(state);
